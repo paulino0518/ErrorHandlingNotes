@@ -42,5 +42,21 @@ app.get('/', [
 ])
 
 ```
+To cleanup the point. remember what I said earlier about express 5, express 5 is only for promises so async too because it returns a promise. 
 
+but if the middleware had a callback. just for good clean sake pass next. 
 
+Handle asynchronous shit too by just throwing an error and passing it to next to them be handled by your global route handler. 
+
+```
+app.get('/', (req, res, next) => {
+  setTimeout(() => {
+    try {
+      throw new Error('BROKEN')
+    } catch (err) {
+      next(err)
+    }
+  }, 100)
+})
+
+```
