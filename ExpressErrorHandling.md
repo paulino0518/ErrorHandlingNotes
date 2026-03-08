@@ -26,7 +26,21 @@ app.get('/', (req, res, next) => {
 
 Express 5 and higher automatically return a next(value) either value is the invalid value or a thrown error. 
 
-if no invalid value express Error object will call the next method. 
+if no invalid value is passed to next, express goes it a default Error object. 
 
+**If you pass anything to next(), besides 'route', it will throw an error**
+
+If you have middleware that has a callback that doesn't return data just errors you can legit jsut pass next and it will handle them without you having to write a custom one. like this. 
+```
+app.get('/', [
+  function (req, res, next) {
+    fs.writeFile('/inaccessible-path', 'data', next)
+  },
+  function (req, res) {
+    res.send('OK')
+  }
+])
+
+```
 
 
