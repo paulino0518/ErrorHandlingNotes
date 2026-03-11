@@ -1,7 +1,7 @@
 What does error handling even mean?  The docs say it's how express catches and processes errors. It comes with a default error handler. 
 
 ## How does express catch errors?
-If Synchronous code throws and error and is handled by catch. 
+If Synchronous code **inside a route handler** throws and error and is handled by catch. 
 
 example of it:
 ```
