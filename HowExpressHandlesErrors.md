@@ -40,4 +40,35 @@ app.get('/', [
 ])
 ```
 
+## Writing errro handlers
+Make the error handling middleware the same as regular middleware but you HAVE to add the err  parameter.  
+Like this:
+```
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
+```
+- Define the errro handler middleware LAST, after all other app.use() calls.
+EX:
+```
+const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
+app.use(bodyParser.json())
+app.use(methodOverride())
+app.use((err, req, res, next) => {
+  // logic
+})
+```
+
+- Keep in mind the middleware can respond in any format like
+  - Html error page
+  - simple message
+  - JSON string
+
+- When you are not calling the next in a error handling function you will be reponsible for writing the response otherwise those requests will hang and will not be eligible for garbage collection.
+- 
